@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/contact_item"
+          android:title="@string/contacts_item"
+          android:icon="@mipmap/contacts"
+          app:showAsAction="always"/>
+    <item android:id="@+id/favorite_item"
+          android:title="@string/favorites_item"
+          android:icon="@mipmap/favorites"
+          app:showAsAction="always"/>
+    <item android:id="@+id/black_white_list_item"
+          android:title="@string/black_white_list_item"
+          android:icon="@mipmap/black_white_list"
+          app:showAsAction="always"/>
+
+</menu>
