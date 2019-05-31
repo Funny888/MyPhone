@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         bottomNav = findViewById(R.id.navigation)
-        tool = findViewById(R.id.myToolbar)
+        tool = findViewById(R.id.myToolbar2)
         setSupportActionBar(tool)
     }
 
