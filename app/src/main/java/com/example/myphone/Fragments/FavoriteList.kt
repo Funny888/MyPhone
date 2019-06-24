@@ -17,8 +17,7 @@ class FavoriteList:Fragment() {
         super.onAttach(context)
         if (context is Notify)
             noty = context
-        else
-            throw Throwable()
+
     }
 
     lateinit var recycler: RecyclerView
