@@ -1,5 +1,7 @@
 package com.example.myphone
 
+import android.Manifest
+import android.content.pm.PackageManager
 import com.example.myphone.Fragments.BlackWhiteList
 import com.example.myphone.Fragments.ContactList
 import com.example.myphone.Fragments.FavoriteList
@@ -13,6 +15,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.myphone.Interfaces.Notify
+import java.security.Permission
 
 class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
 
@@ -32,7 +35,6 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
         contact = ContactList().instance()
         blackwhite = BlackWhiteList().instance()
     }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_contacts, menu)
         return super.onCreateOptionsMenu(menu)
