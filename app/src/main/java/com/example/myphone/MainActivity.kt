@@ -1,23 +1,19 @@
 package com.example.myphone
 
-import android.Manifest
-import android.content.pm.PackageManager
-import com.example.myphone.Fragments.BlackWhiteList
-import com.example.myphone.Fragments.ContactList
-import com.example.myphone.Fragments.FavoriteList
+import com.example.myphone.fragments.BlackWhiteList
+import com.example.myphone.fragments.ContactList
+import com.example.myphone.fragments.FavoriteList
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.example.myphone.Interfaces.Notify
-import java.security.Permission
 
 class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
+
 
     lateinit var bottomNav: BottomNavigationView
     lateinit var tool: Toolbar

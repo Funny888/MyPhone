@@ -6,7 +6,7 @@
     <android.support.v7.widget.Toolbar
             android:id="@+id/myToolbar2"
             android:background="@color/colorPrimary"
-            android:layout_width="411dp"
+            android:layout_width="match_parent"
             android:layout_height="80dp"
     />
 </LinearLayout>

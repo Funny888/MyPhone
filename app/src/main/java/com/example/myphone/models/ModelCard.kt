@@ -1,4 +1,4 @@
-package com.example.myphone.Models
+package com.example.myphone.models
 
 class ModelCard(name:String,phone:String,photo:Int) {
     var name = name

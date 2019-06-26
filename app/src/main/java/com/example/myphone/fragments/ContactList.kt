@@ -1,61 +1,60 @@
-package com.example.myphone.Fragments
+package com.example.myphone.fragments
 
 import android.Manifest
 import android.content.ContentResolver
-import android.content.Context
 import android.content.pm.PackageManager
+import android.databinding.Bindable
+import android.databinding.DataBindingUtil
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat.checkSelfPermission
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.myphone.ContactAdapter
-import com.example.myphone.Interfaces.Notify
-import com.example.myphone.Models.ModelCard
+import com.example.myphone.interfaces.Notify
+import com.example.myphone.models.ModelCard
+import com.example.myphone.models.ShowDetailItemModel
 import com.example.myphone.R
+import com.example.myphone.databinding.ContactListBinding
+import kotlin.collections.HashSet
 
-class ContactList : Fragment() {
-    lateinit var provider: ContentResolver
-    lateinit var noty: Notify
-    lateinit var recycler: RecyclerView
-    lateinit var adapter: ContactAdapter
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is Notify) {
-            noty = context
-        }
-    }
-
+class ContactList : Fragment(){
+    lateinit var mProvider: ContentResolver
+    lateinit var mRecycler: RecyclerView
+    lateinit var mAdapter: ContactAdapter
+    var mShowDetailItemModel: ShowDetailItemModel? = null
     fun instance(): ContactList {
         return ContactList()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.contact_list, container, false)
-        recycler = view.findViewById(R.id.contact_list)
-        recycler.layoutManager = LinearLayoutManager(this.activity)
-        recycler.setHasFixedSize(false)
+
+        var binding:ContactListBinding = DataBindingUtil.inflate(inflater,R.layout.contact_list, container, false)
+        mRecycler = binding.contactList
+        mRecycler.layoutManager = LinearLayoutManager(this.activity)
         var statusPermissions = activity!!.checkSelfPermission(Manifest.permission.READ_CONTACTS)
         if (statusPermissions != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), 12)
         }else{
             reqData()
         }
+        mShowDetailItemModel = ShowDetailItemModel(1)
+        binding.myModel = mShowDetailItemModel
 
 
-        return view
+        return binding.root
     }
 
     fun reqData(){
         var uri: Uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI
-        provider = activity!!.contentResolver
-        var cursor = provider.query(
+        mProvider = activity!!.contentResolver
+        var cursor = mProvider.query(
             uri,
             arrayOf(
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
@@ -84,8 +83,13 @@ class ContactList : Fragment() {
         }
 
 
-        adapter = ContactAdapter(list, activity!!.baseContext)
-        recycler.adapter = adapter
+        mAdapter = ContactAdapter(list, activity!!.baseContext)
+        mAdapter.Notufy(object : Notify {
+            override fun getItemId(id: Int) {
+
+            }
+        })
+        mRecycler.adapter = mAdapter
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
