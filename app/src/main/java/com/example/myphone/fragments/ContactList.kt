@@ -10,24 +10,30 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.example.myphone.ContactAdapter
 import com.example.myphone.interfaces.Notify
 import com.example.myphone.models.ModelCard
 import com.example.myphone.models.ShowDetailItemModel
 import com.example.myphone.R
 import com.example.myphone.databinding.ContactListBinding
+import kotlinx.android.synthetic.*
+import kotlinx.android.synthetic.main.contact_list.*
 import kotlin.collections.HashSet
 
-class ContactList : Fragment(){
+class ContactList : Fragment(),Notify{
     lateinit var mProvider: ContentResolver
     lateinit var mRecycler: RecyclerView
     lateinit var mAdapter: ContactAdapter
+    lateinit var mList:HashSet<ModelCard>
+    lateinit var mProfile:FragmentItem
     var mShowDetailItemModel: ShowDetailItemModel? = null
     fun instance(): ContactList {
         return ContactList()
@@ -44,7 +50,8 @@ class ContactList : Fragment(){
         }else{
             reqData()
         }
-        mShowDetailItemModel = ShowDetailItemModel(1)
+        mShowDetailItemModel = ShowDetailItemModel()
+        mShowDetailItemModel!!.notify(this)
         binding.myModel = mShowDetailItemModel
 
 
@@ -58,7 +65,7 @@ class ContactList : Fragment(){
             uri,
             arrayOf(
                 ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-                ContactsContract.CommonDataKinds.Phone.DATA4,
+                ContactsContract.CommonDataKinds.Phone.DATA1,
                 ContactsContract.CommonDataKinds.Phone.PHOTO_URI
             ),
             null,
@@ -70,25 +77,21 @@ class ContactList : Fragment(){
 
 //            for (cur in cursor.columnNames.iterator())
 //            Log.d(
-//                "test",
+//                "closeShowItem",
 //                "column: " + cur + " value: " +  cursor.getString(cursor.getColumnIndex(cur)))
             list.add(
                 ModelCard(
                     cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)),
-                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA4)),
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA1)),
                     Color.BLUE
                 )
             )
 
         }
 
-
-        mAdapter = ContactAdapter(list, activity!!.baseContext)
-        mAdapter.Notufy(object : Notify {
-            override fun getItemId(id: Int) {
-
-            }
-        })
+        mList = list
+        mAdapter = ContactAdapter(mList, activity!!.baseContext)
+        mAdapter.Notufy(this)
         mRecycler.adapter = mAdapter
     }
 
@@ -103,5 +106,14 @@ class ContactList : Fragment(){
 
         }
     }
+    override fun getItemId(id: Int, isShow: Boolean) {
+        mShowDetailItemModel?.setMid(id)
+        Log.d("test",""+id +" list " + mList.elementAt(id).name)
+        mShowDetailItemModel?.setIsShow(isShow)
+        mProfile = FragmentItem().getInstance()
+        mProfile.setData(mList.elementAt(id).name,mList.elementAt(id).phone,mList.elementAt(id).photo.toString())
 
+        var frag:FragmentTransaction = childFragmentManager.beginTransaction().replace(R.id.frame_item,mProfile)
+        frag.commit()
+    }
 }

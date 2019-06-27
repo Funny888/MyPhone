@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
         favorite = FavoriteList().instance()
         contact = ContactList().instance()
         blackwhite = BlackWhiteList().instance()
+        supportFragmentManager.beginTransaction().add(R.id.frame, contact).commitNow()
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_contacts, menu)

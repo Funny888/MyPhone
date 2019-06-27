@@ -26,7 +26,7 @@ class ContactAdapter (list:HashSet<ModelCard>,context:Context): RecyclerView.Ada
             p0.image.setBackgroundColor(list.elementAt(p1).photo)
             p0.name.setText(list.elementAt(p1).name)
             p0.phone.setText(list.elementAt(p1).phone)
-            p0.itemView.setOnClickListener { notis.getItemId(p1)}
+            p0.itemView.setOnClickListener { notis.getItemId(p1,true)}
     }
 
     fun Notufy(notify: Notify):Notify{
