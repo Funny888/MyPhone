@@ -17,7 +17,7 @@
     <FrameLayout
             android:id="@+id/frame_item"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
+            android:layout_height="200dp"
             android:visibility="@{myModel.isShow ? View.VISIBLE : View.GONE}"
             android:onClick="@{c -> myModel.closeShowItem()}"
             android:layout_weight="1"/>

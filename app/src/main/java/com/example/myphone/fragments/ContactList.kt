@@ -75,15 +75,15 @@ class ContactList : Fragment(),Notify{
         var list = HashSet<ModelCard>()
         while (cursor.moveToNext()) {
 
-//            for (cur in cursor.columnNames.iterator())
-//            Log.d(
-//                "closeShowItem",
-//                "column: " + cur + " value: " +  cursor.getString(cursor.getColumnIndex(cur)))
+            for (cur in cursor.columnNames.iterator())
+            Log.d(
+                "closeShowItem",
+                "column: " + cur + " value: " +  cursor.getString(cursor.getColumnIndex(cur)))
             list.add(
                 ModelCard(
                     cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)),
                     cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA1)),
-                    Color.BLUE
+                    cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI))?: "null"
                 )
             )
 
@@ -108,10 +108,9 @@ class ContactList : Fragment(),Notify{
     }
     override fun getItemId(id: Int, isShow: Boolean) {
         mShowDetailItemModel?.setMid(id)
-        Log.d("test",""+id +" list " + mList.elementAt(id).name)
         mShowDetailItemModel?.setIsShow(isShow)
         mProfile = FragmentItem().getInstance()
-        mProfile.setData(mList.elementAt(id).name,mList.elementAt(id).phone,mList.elementAt(id).photo.toString())
+        mProfile.setData(mList.elementAt(id).name,mList.elementAt(id).phone,mList.elementAt(id).photo)
 
         var frag:FragmentTransaction = childFragmentManager.beginTransaction().replace(R.id.frame_item,mProfile)
         frag.commit()

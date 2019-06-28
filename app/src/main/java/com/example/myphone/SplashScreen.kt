@@ -16,7 +16,7 @@ class SplashScreen : AppCompatActivity() {
         var text: TextView = TextView(this)
         var param: LinearLayout.LayoutParams =
             LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-        text.setText("Splash Screen")
+        text.setText(getString(R.string.splash_screen))
         this.addContentView(text, param)
         var anim: Animation
         anim = AnimationUtils.loadAnimation(this, R.anim.anim_splash)

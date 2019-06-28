@@ -1,7 +1,10 @@
 package com.example.myphone
 
 import android.content.Context
+import android.graphics.Color
+import android.net.Uri
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +26,18 @@ class ContactAdapter (list:HashSet<ModelCard>,context:Context): RecyclerView.Ada
        return list.size
     }
     override fun onBindViewHolder(p0: ViewHolder, p1: Int) {
-            p0.image.setBackgroundColor(list.elementAt(p1).photo)
+            if (!list.elementAt(p1).photo.equals("null")){
+                p0.image.setImageURI(Uri.parse(list.elementAt(p1).photo))
+            }else{
+                var sex:String = list.elementAt(p1).name.subSequence(list.elementAt(p1).name.length-1,list.elementAt(p1).name.length).toString()
+                if (sex.equals("а") || sex.equals("А") || sex.equals("я") || sex.equals("Я") ||sex.equals("a") || sex.equals("A") ) {
+                    p0.image.setImageResource(R.mipmap.profile_female)
+                } else {
+                    p0.image.setImageResource(R.mipmap.profile_male)
+                }
+
+            }
+
             p0.name.setText(list.elementAt(p1).name)
             p0.phone.setText(list.elementAt(p1).phone)
             p0.itemView.setOnClickListener { notis.getItemId(p1,true)}

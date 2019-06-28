@@ -3,4 +3,8 @@
     <string name="contacts_item">Контакты</string>
     <string name="favorites_item">Любимые</string>
     <string name="black_white_list_item">Черный/белый список</string>
+    <string name="splash_screen">Добро пожаловать</string>
+    <string name="str_name">Имя</string>
+    <string name="str_phone">Телефон:</string>
+    <string name="str_skype">Skype:</string>
 </resources>
