@@ -4,15 +4,14 @@ import com.example.myphone.fragments.BlackWhiteList
 import com.example.myphone.fragments.ContactList
 import com.example.myphone.fragments.FavoriteList
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener
-import android.support.v4.app.FragmentTransaction
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.FragmentTransaction
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
 
     lateinit var bottomNav: BottomNavigationView
